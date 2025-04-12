@@ -1,3 +1,4 @@
+// Массив с фейковыми комментариями, имитирующий данные с сервера
 const fakeComments = [
     {id: 1, text: 'Хороший товар!'},
     {id: 2, text: 'Доставка была долгой.'},
@@ -13,36 +14,54 @@ const fakeComments = [
     {id: 12, text: 'Не рекомендую — товар не соответствует описанию.'},
 ];
 
+// Функция, имитирующая загрузку комментариев с сервера (с задержкой 2 секунды)
 function fetchComments() {
     return new Promise(resolve => {
         setTimeout(() => resolve(fakeComments), 2000);
     });
 }
 
+// Основная функция поиска комментариев по ключевому слову
 async function searchComments(keyword) {
-    try{
-        let commentsTexts = '';
-        let counter = 0;
+    try {
+        let commentsTexts = ''; // Строка для сбора найденных комментариев
+        let counter = 0; // Счётчик совпадений
+
         const comments = await fetchComments();
-        let results = comments.filter(c => c.text.toLowerCase().includes(keyword.toLowerCase()));
 
-        results.forEach(res => {
-            commentsTexts += `\n- ${res.text}`;
-            counter++;
-        });
+        // Фильтруем комментарии по ключевому слову
+        let results = comments.filter(c => 
+            c.text.toLowerCase().includes(keyword.toLowerCase())
+        );
 
-        alert(`Комментарии по ключевому слову "${keyword}" (${counter}): ${commentsTexts}`)
+        //Проверка найдены ли коментарии
+        if(results.length === 0){
+            alert(`Комментарии по ключевому слову "${keyword}" не найдены`);
+        }
+        else {
+            // Проходим по найденным комментариям и собираем их в одну строку
+            results.forEach(res => {
+                commentsTexts += `\n- ${res.text}`;
+                counter++;
+            });
+
+            alert(`Комментарии по ключевому слову "${keyword}" (${counter}): ${commentsTexts}`);
+        }
+        
     } catch (error) {
-        alert('Ошибка при поиске комментария')
-        console.error(`Ошибка: ${error}`)
+        alert('Ошибка при поиске комментария');
+        console.error(`Ошибка: ${error}`);
     }
 }
 
 let keyword = prompt('Введите ключевое слово для поиска комментария');
 
 if (keyword === null) {
-} else if (keyword.trim() === '') {
+    // Пользователь отменил ввод
+}
+else if (keyword.trim() === '') {
     alert('Вы не ввели ключевое слово для поиска!');
-} else {
+}
+else {
     searchComments(keyword.trim());
 }
