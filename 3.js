@@ -38,5 +38,11 @@ async function searchComments(keyword) {
     }
 }
 
-let keyword = prompt('Введите ключевое слово для поиска комментария')
-searchComments(keyword)
+let keyword = prompt('Введите ключевое слово для поиска комментария');
+
+if (keyword === null) {
+} else if (keyword.trim() === '') {
+    alert('Вы не ввели ключевое слово для поиска!');
+} else {
+    searchComments(keyword.trim());
+}
