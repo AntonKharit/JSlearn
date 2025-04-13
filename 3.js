@@ -38,8 +38,9 @@ async function searchComments(keyword) {
         if(results.length === 0){
             alert(`Комментарии по ключевому слову "${keyword}" не найдены`);
         }
+
+        // Найденые коментарии собираются в одну строку
         else {
-            // Проходим по найденным комментариям и собираем их в одну строку
             results.forEach(res => {
                 commentsTexts += `\n- ${res.text}`;
                 counter++;
@@ -57,7 +58,6 @@ async function searchComments(keyword) {
 let keyword = prompt('Введите ключевое слово для поиска комментария');
 
 if (keyword === null) {
-    // Пользователь отменил ввод
 }
 else if (keyword.trim() === '') {
     alert('Вы не ввели ключевое слово для поиска!');
