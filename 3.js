@@ -24,8 +24,8 @@ function fetchComments() {
 // Основная функция поиска комментариев по ключевому слову
 async function searchComments(keyword) {
     try {
-        let commentsTexts = ''; // Строка для сбора найденных комментариев
-        let counter = 0; // Счётчик совпадений
+        let commentsTexts = '';
+        let counter = 0;
 
         const comments = await fetchComments();
 
